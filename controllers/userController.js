@@ -1,41 +1,41 @@
 const User = require('../models/User');
 
 // Create User
-const createUser = async(req,res) => {
+const createUser = async(req, h) => {
     try{
         const {name, email, age} = req.payload;
         const user = new User({name, email, age});
         const savedUser = await user.save();
-        return h.res(savedUser).code(201); 
+        return h.response(savedUser).code(201); 
     }catch(error){
-        return h.res({error: error.message}).code(500);
+        return h.response({error: error.message}).code(500);
     }
 };
 
 // Get All Users
-const getUsers = async(req, res) =>{
+const getUsers = async(req, h) =>{
     try{
         const users = await User.find();
-        return h.res(users).code(200);
+        return h.response(users).code(200);
     }catch(error){
-        return h.res({error: error.message}).code(500);
+        return h.response({error: error.message}).code(500);
     }
 };
 
 // Get Single User
-const getUserById = async(req, res) => {
+const getUserById = async(req, h) => {
     try{
         const user = await User.findById(req.params.id);
         if(!user) return h.res({message: 'User not found'}).code(404);
-        return h.res(user).code(200);
+        return h.response(user).code(200);
     }catch(error){
-        return h.res({error: error.message}).code(500);
+        return h.response({error: error.message}).code(500);
     }
 }
 
 
 //Update User
-const updateUser = async(req, res)=>{
+const updateUser = async(req,h)=>{
     try{
 
         const updatedUser = await User.findByIdAndUpdate(
@@ -45,15 +45,15 @@ const updateUser = async(req, res)=>{
         );
 
         if(!updatedUser) return h.res({message: 'User not found'}).code(404);
-        return h.res(updatedUser).code(200);
+        return h.response(updatedUser).code(200);
 
     }catch(error){
-        return h.res({error: error.message}).code(500);
+        return h.response({error: error.message}).code(500);
     }
 }
 
 // Delete User
-const deleteUser = async(req, res)=>{
+const deleteUser = async(req, h)=>{
     try{
         const deletedUser = await User.findByIdAndDelete(
             req.params.id,
@@ -62,10 +62,10 @@ const deleteUser = async(req, res)=>{
         );
 
         if(!deletedUser) return h.res({message: 'User not found'}).code(404);
-        return h.res({message: "User Deleted"}).code(200);
+        return h.response({message: "User Deleted"}).code(200);
 
     }catch(error){
-        return h.res({error: error.message}).code(500);
+        return h.response({error: error.message}).code(500);
     }
 }
 
