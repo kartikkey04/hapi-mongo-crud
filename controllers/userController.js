@@ -26,7 +26,7 @@ const getUsers = async(req, h) =>{
 const getUserById = async(req, h) => {
     try{
         const user = await User.findById(req.params.id);
-        if(!user) return h.res({message: 'User not found'}).code(404);
+        if(!user) return h.response({message: 'User not found'}).code(404);
         return h.response(user).code(200);
     }catch(error){
         return h.response({error: error.message}).code(500);
@@ -44,7 +44,7 @@ const updateUser = async(req,h)=>{
             {new: true}
         );
 
-        if(!updatedUser) return h.res({message: 'User not found'}).code(404);
+        if(!updatedUser) return h.response({message: 'User not found'}).code(404);
         return h.response(updatedUser).code(200);
 
     }catch(error){
@@ -61,7 +61,7 @@ const deleteUser = async(req, h)=>{
             {new: true}
         );
 
-        if(!deletedUser) return h.res({message: 'User not found'}).code(404);
+        if(!deletedUser) return h.response({message: 'User not found'}).code(404);
         return h.response({message: "User Deleted"}).code(200);
 
     }catch(error){
