@@ -1,5 +1,5 @@
 const userController = require('../controllers/userController');
-const userSchema = require('../../validations/userValidation');
+const userSchema = require('../validations/userValidation');
 
 module.exports = [
     {
